@@ -1,6 +1,6 @@
 # ps1-obfuscator
 
-![image](https://github.com/user-attachments/assets/aba0d9fc-9818-4709-bce1-71a311a870dc)
+![image](https://github.com/user-attachments/assets/39e165b8-0030-4add-a6e0-902afb6f49ee)
 
 A ps1 obfuscator designed to help run fkmde or other tools for use in environments with Microsoft Defender for Endpoint (MDE).
 
